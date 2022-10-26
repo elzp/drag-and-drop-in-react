@@ -10,11 +10,29 @@ function DragAndDrop({ name }) {
     { name: '4Article', date: '10.09.2022', content: '4Article' },
   ];
 
+  function dragEnter(e) {
+    e.preventDefault();
+    e.target.classList.add('drag-over');
+  }
+
+  function dragOver(e) {
+    e.preventDefault();
+    e.target.classList.add('drag-over');
+  }
+
+  function dragLeave(e) {
+    e.target.classList.remove('drag-over');
+  }
+
   return (
     <div className="flex justify-center items-top">
       <div
         className="bg-white overflow-hidden rounded-md p-30 mx-5 max-w-xs flex-1 flex flex-col"
-        draggable="false">
+        draggable="false"
+        onDragEnter={dragEnter}
+        onDragOver={dragOver}
+        onDragLeave={dragLeave}
+      >
         <h2 className="text-4xl p-5 text-center" draggable="false">
           Drafts
         </h2>
@@ -27,7 +45,11 @@ function DragAndDrop({ name }) {
 
       <div
         className="bg-white overflow-hidden rounded-md p-30 max-w-xs flex-1 flex flex-col"
-        draggable="false">
+        draggable="false"
+        onDragEnter={dragEnter}
+        onDragOver={dragOver}
+        onDragLeave={dragLeave}
+      >
         <h2 className="text-4xl p-5 text-center" draggable="false">
           Published
         </h2>
