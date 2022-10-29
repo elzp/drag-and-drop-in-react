@@ -9,24 +9,32 @@ function DragAndDrop({ name }) {
       date: '10.09.2022',
       content: '1Article',
       parent: 'drafts',
+      hide: false,
+      dragover: false,
     },
     {
       name: '2Article',
       date: '10.09.2022',
       content: '2Article',
       parent: 'drafts',
+      hide: false,
+      dragover: false,
     },
     {
       name: '3Article',
       date: '10.09.2022',
       content: '3Article',
       parent: 'drafts',
+      hide: false,
+      dragover: false,
     },
     {
       name: '4Article',
       date: '10.09.2022',
       content: '4Article',
       parent: 'published',
+      hide: false,
+      dragover: false,
     },
   ];
 
@@ -35,7 +43,27 @@ function DragAndDrop({ name }) {
   );
 
 
-  function dragEnter(e) {
+ 
+
+  function dragStart(e) {
+    e.dataTransfer.setData('text', e.target.id);
+
+    setTimeout(() => {
+      e.target.classList.add('hide');
+      setdataForArticles((prev) => {
+        const newprop = prev.map((it) => {
+          if (it.name === e.target.id) {
+            // it.hide = true;
+            return { ...it, hide: true };
+          } else {
+            return it;
+          }
+        });
+        return newprop;
+      });
+    }, 0);
+  }
+ function dragEnter(e) {
     e.preventDefault();
     e.target.classList.add('drag-over');
   }
@@ -65,7 +93,13 @@ function DragAndDrop({ name }) {
           {dataForArticles
            .filter((it) => it.parent === 'drafts')
            .map((it) => (
-            <Arcicle draggable="false" key={it.name} props={it} />
+            <Arcicle
+                draggable="false"
+                key={it.name}
+                props={it}
+                hide={it.hide}
+                dragover={it.dragover}
+              />
           ))}
         </main>
       </div>
