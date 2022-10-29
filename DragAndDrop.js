@@ -8,21 +8,25 @@ function DragAndDrop({ name }) {
       name: '1Article',
       date: '10.09.2022',
       content: '1Article',
+      parent: 'drafts',
     },
     {
       name: '2Article',
       date: '10.09.2022',
       content: '2Article',
+      parent: 'drafts',
     },
     {
       name: '3Article',
       date: '10.09.2022',
       content: '3Article',
+      parent: 'drafts',
     },
     {
       name: '4Article',
       date: '10.09.2022',
       content: '4Article',
+      parent: 'published',
     },
   ];
 
