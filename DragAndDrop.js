@@ -3,12 +3,33 @@ import Arcicle from './Article.js';
 import './style.css';
 
 function DragAndDrop({ name }) {
-  const dataForArticles = [
-    { name: '1Article', date: '10.09.2022', content: '1Article' },
-    { name: '2Article', date: '10.09.2022', content: '2Article' },
-    { name: '3Article', date: '10.09.2022', content: '3Article' },
-    { name: '4Article', date: '10.09.2022', content: '4Article' },
+  const defaultdataForArticles = [
+    {
+      name: '1Article',
+      date: '10.09.2022',
+      content: '1Article',
+    },
+    {
+      name: '2Article',
+      date: '10.09.2022',
+      content: '2Article',
+    },
+    {
+      name: '3Article',
+      date: '10.09.2022',
+      content: '3Article',
+    },
+    {
+      name: '4Article',
+      date: '10.09.2022',
+      content: '4Article',
+    },
   ];
+
+  const [dataForArticles, setdataForArticles] = React.useState(
+    defaultdataForArticles
+  );
+
 
   function dragEnter(e) {
     e.preventDefault();
