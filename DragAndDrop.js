@@ -62,7 +62,9 @@ function DragAndDrop({ name }) {
           Drafts
         </h2>
         <main className="p-10 bg-gray-300 flex-1" draggable="false">
-          {dataForArticles.map((it) => (
+          {dataForArticles
+           .filter((it) => it.parent === 'drafts')
+           .map((it) => (
             <Arcicle draggable="false" key={it.name} props={it} />
           ))}
         </main>
@@ -78,7 +80,19 @@ function DragAndDrop({ name }) {
         <h2 className="text-4xl p-5 text-center" draggable="false">
           Published
         </h2>
-        <main className="p-10 bg-gray-300 flex-1" draggable="false"></main>
+        <main className="p-10 bg-gray-300 flex-1" draggable="false">
+          {dataForArticles
+            .filter((it) => it.parent === 'published')
+            .map((it) => (
+              <Arcicle
+                draggable="false"
+                key={it.name}
+                props={it}
+                hide={it.hide}
+                dragover={it.dragover}
+              />
+            ))}
+          </main>
       </div>
     </div>
   );
