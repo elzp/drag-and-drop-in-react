@@ -10,7 +10,6 @@ function DragAndDrop({ name }) {
       content: '1Article',
       parent: 'drafts',
       hide: false,
-      dragover: false,
     },
     {
       name: '2Article',
@@ -18,7 +17,6 @@ function DragAndDrop({ name }) {
       content: '2Article',
       parent: 'drafts',
       hide: false,
-      dragover: false,
     },
     {
       name: '3Article',
@@ -26,7 +24,6 @@ function DragAndDrop({ name }) {
       content: '3Article',
       parent: 'drafts',
       hide: false,
-      dragover: false,
     },
     {
       name: '4Article',
@@ -34,7 +31,6 @@ function DragAndDrop({ name }) {
       content: '4Article',
       parent: 'published',
       hide: false,
-      dragover: false,
     },
   ];
 
@@ -98,7 +94,6 @@ function DragAndDrop({ name }) {
                 key={it.name}
                 props={it}
                 hide={it.hide}
-                dragover={it.dragover}
               />
           ))}
         </main>
@@ -123,7 +118,6 @@ function DragAndDrop({ name }) {
                 key={it.name}
                 props={it}
                 hide={it.hide}
-                dragover={it.dragover}
               />
             ))}
           </main>
