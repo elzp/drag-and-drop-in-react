@@ -85,7 +85,12 @@ function DragAndDrop({ name }) {
         <h2 className="text-4xl p-5 text-center" draggable="false">
           Drafts
         </h2>
-        <main className="p-10 bg-gray-300 flex-1" draggable="false">
+        <main className="p-10 bg-gray-300 flex-1" draggable="false"
+        draggable="false"
+        onDragEnter={dragEnter}
+        onDragOver={dragOver}
+        onDragLeave={dragLeave}
+        id="drafts">
           {dataForArticles
            .filter((it) => it.parent === 'drafts')
            .map((it) => (
@@ -101,15 +106,16 @@ function DragAndDrop({ name }) {
 
       <div
         className="bg-white overflow-hidden rounded-md p-30 max-w-xs flex-1 flex flex-col"
-        draggable="false"
-        onDragEnter={dragEnter}
-        onDragOver={dragOver}
-        onDragLeave={dragLeave}
       >
         <h2 className="text-4xl p-5 text-center" draggable="false">
           Published
         </h2>
-        <main className="p-10 bg-gray-300 flex-1" draggable="false">
+        <main className="p-10 bg-gray-300 flex-1" draggable="false"
+        draggable="false"
+        onDragEnter={dragEnter}
+        onDragOver={dragOver}
+        onDragLeave={dragLeave}
+        id="published">
           {dataForArticles
             .filter((it) => it.parent === 'published')
             .map((it) => (
