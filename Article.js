@@ -8,7 +8,7 @@ export default (props) => {
       draggable="true"
       id={props.props.name}
     >
-      <a href="#">
+      <a href="#"  draggable="false">
         <img
           alt="Placeholder"
           class="block h-auto w-full"
