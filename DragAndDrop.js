@@ -73,6 +73,23 @@ function DragAndDrop({ name }) {
     e.target.classList.remove('drag-over');
   }
 
+  
+    function drop(e, container) {
+    e.target.classList.remove('drag-over');
+
+    const idOfDraggedElement = e.dataTransfer.getData('text/plain');
+
+    setdataForArticles((prev) => {
+      const newprop = prev.map((it) => {
+        if (it.name === idOfDraggedElement) {
+          return { ...it, hide: false, parent: e.target.id };
+        } else {
+          return it;
+        }
+      });
+      return newprop;
+    });
+  
   return (
     <div className="flex justify-center items-top">
       <div
@@ -90,6 +107,7 @@ function DragAndDrop({ name }) {
         onDragEnter={dragEnter}
         onDragOver={dragOver}
         onDragLeave={dragLeave}
+        onDrop={drop}
         id="drafts">
           {dataForArticles
            .filter((it) => it.parent === 'drafts')
@@ -115,6 +133,7 @@ function DragAndDrop({ name }) {
         onDragEnter={dragEnter}
         onDragOver={dragOver}
         onDragLeave={dragLeave}
+        onDrop={drop}
         id="published">
           {dataForArticles
             .filter((it) => it.parent === 'published')
