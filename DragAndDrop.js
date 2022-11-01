@@ -47,21 +47,6 @@ function DragAndDrop({ name }) {
 
   function dragStart(e) {
     e.dataTransfer.setData('text', e.target.id);
-
-    setTimeout(() => {
-      e.target.classList.add('hide');
-      setdataForArticles((prev) => {
-        const newprop = prev.map((it) => {
-          if (it.name === e.target.id) {
-            // it.hide = true;
-            return { ...it, hide: true };
-          } else {
-            return it;
-          }
-        });
-        return newprop;
-      });
-    }, 0);
   }
  function dragEnter(e) {
     e.preventDefault();
