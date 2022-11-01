@@ -77,6 +77,19 @@ function DragAndDrop({ name }) {
     e.target.classList.remove('drag-over');
   }
 
+  function updatePosition(position, name) {
+    setdataForArticles((prev) => {
+      const newprop = prev.map((it) => {
+        if (it.name === name) {
+          return { ...it, top: position };
+        } else {
+          return it;
+        }
+      });
+      return newprop;
+    });
+  }
+  
   
     function drop(e, container) {
     e.target.classList.remove('drag-over');
@@ -121,6 +134,7 @@ function DragAndDrop({ name }) {
                 key={it.name}
                 props={it}
                 hide={it.hide}
+                updatePosition={updatePosition}
               />
           ))}
         </main>
@@ -147,6 +161,7 @@ function DragAndDrop({ name }) {
                 key={it.name}
                 props={it}
                 hide={it.hide}
+                updatePosition={updatePosition}
               />
             ))}
           </main>
