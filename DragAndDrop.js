@@ -91,22 +91,24 @@ function DragAndDrop({ name }) {
   }
   
   
-    function drop(e, container) {
+    function drop(e) {
     e.target.classList.remove('drag-over');
 
     const idOfDraggedElement = e.dataTransfer.getData('text/plain');
+    const yPositionofMouseOnDrop = e.clientY + window.scrollY;
 
     setdataForArticles((prev) => {
       const newprop = prev.map((it) => {
         if (it.name === idOfDraggedElement) {
-          return { ...it, hide: false, parent: e.target.id };
+          return { ...it, hide: false, parent: e.target.id,
+                 top: yPositionofMouseOnDrop,};
         } else {
           return it;
         }
       });
       return newprop;
     });
-  
+ 
     function sortBy(array, nameOfKey) {
       const baseOfArray = [...array];
       const result = baseOfArray.sort((a, b) => {
