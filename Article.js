@@ -2,11 +2,13 @@ import React from 'react';
 import './style.css';
 
 export default (props) => {
+  const containerRef = React.useRef();
   return (
     <article
       class={`bg-white rounded-md overflow-hidden my-10 ${props.hide?'hide': ''}}
       draggable="true"
       id={props.props.name}
+      ref={containerRef}
     >
       <a href="#"  draggable="false">
         <img
