@@ -134,8 +134,8 @@ function DragAndDrop({ name }) {
         onDragLeave={dragLeave}
         onDrop={drop}
         id="drafts">
-          {dataForArticles
-           .filter((it) => it.parent === 'drafts')
+          {sortBy(dataForArticles
+           .filter((it) => it.parent === 'drafts'), "top")
            .map((it) => (
             <Arcicle
                 draggable="false"
@@ -161,8 +161,8 @@ function DragAndDrop({ name }) {
         onDragLeave={dragLeave}
         onDrop={drop}
         id="published">
-          {dataForArticles
-            .filter((it) => it.parent === 'published')
+          {sortBy(dataForArticles
+            .filter((it) => it.parent === 'published'),"top")
             .map((it) => (
               <Arcicle
                 draggable="false"
