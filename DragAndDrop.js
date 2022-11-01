@@ -107,6 +107,14 @@ function DragAndDrop({ name }) {
       return newprop;
     });
   
+    function sortBy(array, nameOfKey) {
+      const baseOfArray = [...array];
+      const result = baseOfArray.sort((a, b) => {
+        return a[nameOfKey] - b[nameOfKey];
+      });
+      return result;
+    }   
+      
   return (
     <div className="flex justify-center items-top">
       <div
