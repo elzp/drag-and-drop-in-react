@@ -3,20 +3,22 @@ import './style.css';
 
 export default (props) => {
   const containerRef = React.useRef();
+
   React.useEffect(() => {
     props.updatePosition(
       containerRef.current.getBoundingClientRect().top + window.scrollY,
       props.props.name
     );
   });
+
   return (
     <article
-      class={`bg-white rounded-md overflow-hidden my-10 ${props.hide?'hide': ''}}
+      class="bg-white rounded-md overflow-hidden my-10"
       draggable="true"
-      id={props.props.name}
       ref={containerRef}
+      id={props.props.name}
     >
-      <a href="#"  draggable="false">
+      <a href="#" draggable="false">
         <img
           alt="Placeholder"
           class="block h-auto w-full"

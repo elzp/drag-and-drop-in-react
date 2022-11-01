@@ -2,14 +2,13 @@ import React from 'react';
 import Arcicle from './Article.js';
 import './style.css';
 
-function DragAndDrop({ name }) {
+function DragAndDrop() {
   const defaultdataForArticles = [
     {
       name: '1Article',
       date: '10.09.2022',
       content: '1Article',
       parent: 'drafts',
-      hide: false,
       top: 0,
     },
     {
@@ -17,7 +16,6 @@ function DragAndDrop({ name }) {
       date: '10.09.2022',
       content: '2Article',
       parent: 'drafts',
-      hide: false,
       top: 0,
     },
     {
@@ -25,7 +23,6 @@ function DragAndDrop({ name }) {
       date: '10.09.2022',
       content: '3Article',
       parent: 'drafts',
-      hide: false,
       top: 0,
     },
     {
@@ -33,34 +30,13 @@ function DragAndDrop({ name }) {
       date: '10.09.2022',
       content: '4Article',
       parent: 'published',
-      hide: false,
       top: 0,
     },
   ];
-
+  const parents = ['drafts', 'published'];
   const [dataForArticles, setdataForArticles] = React.useState(
     defaultdataForArticles
   );
-
-
- 
-
-  function dragStart(e) {
-    e.dataTransfer.setData('text', e.target.id);
-  }
- function dragEnter(e) {
-    e.preventDefault();
-    e.target.classList.add('drag-over');
-  }
-
-  function dragOver(e) {
-    e.preventDefault();
-    e.target.classList.add('drag-over');
-  }
-
-  function dragLeave(e) {
-    e.target.classList.remove('drag-over');
-  }
 
   function updatePosition(position, name) {
     setdataForArticles((prev) => {
@@ -74,92 +50,120 @@ function DragAndDrop({ name }) {
       return newprop;
     });
   }
-  
-  
-    function drop(e) {
-    e.target.classList.remove('drag-over');
+  function dragStart(e) {
+    e.dataTransfer.setData('text', e.target.id);
+  }
 
+  function dragEnter(e) {
+    e.preventDefault();
+  }
+
+  function dragOver(e) {
+    e.preventDefault();
+    e.target.classList.add('drag-over');
+  }
+
+  function dragLeave(e) {
+    e.target.classList.remove('drag-over');
+  }
+
+  function drop(e) {
+    e.preventDefault();
+
+    e.target.classList.remove('drag-over');
     const idOfDraggedElement = e.dataTransfer.getData('text/plain');
     const yPositionofMouseOnDrop = e.clientY + window.scrollY;
 
     setdataForArticles((prev) => {
-      const newprop = prev.map((it) => {
+      let newprop = prev.map((it) => {
         if (it.name === idOfDraggedElement) {
-          return { ...it, hide: false, parent: e.target.id,
-                 top: yPositionofMouseOnDrop,};
+          return {
+            ...it,
+            top: yPositionofMouseOnDrop,
+            parent: e.target.id, 
+          };
         } else {
           return it;
         }
       });
+
       return newprop;
     });
- 
-    function sortBy(array, nameOfKey) {
-      const baseOfArray = [...array];
-      const result = baseOfArray.sort((a, b) => {
-        return a[nameOfKey] - b[nameOfKey];
-      });
-      return result;
-    }   
-      
+  }
+
+  function sortBy(array, nameOfKey) {
+    const baseOfArray = [...array];
+    const result = baseOfArray.sort((a, b) => {
+      return a[nameOfKey] - b[nameOfKey];
+    });
+    return result;
+  }
+
   return (
     <div className="flex justify-center items-top">
       <div
         className="bg-white overflow-hidden rounded-md p-30 mx-5 max-w-xs flex-1 flex flex-col"
         draggable="false"
-        onDragEnter={dragEnter}
-        onDragOver={dragOver}
-        onDragLeave={dragLeave}
       >
         <h2 className="text-4xl p-5 text-center" draggable="false">
           Drafts
         </h2>
-        <main className="p-10 bg-gray-300 flex-1" draggable="false"
-        draggable="false"
-        onDragEnter={dragEnter}
-        onDragOver={dragOver}
-        onDragLeave={dragLeave}
-        onDrop={drop}
-        id="drafts">
-          {sortBy(dataForArticles
-           .filter((it) => it.parent === 'drafts'), "top")
-           .map((it) => (
+        <main
+          className="p-10 bg-gray-300 flex-1"
+          draggable="false"
+          onDragStart={dragStart}
+          onDragEnter={dragEnter}
+          onDragOver={dragOver}
+          onDragLeave={dragLeave}
+          onDrop={drop}
+          id="drafts"
+        >
+          {sortBy(
+            dataForArticles.filter((it) => it.parent === 'drafts'),
+            'top'
+          ).map((it) => (
             <Arcicle
-                draggable="false"
-                key={it.name}
-                props={it}
-                hide={it.hide}
-                updatePosition={updatePosition}
-              />
+              draggable="false"
+              key={it.name}
+              props={it}
+              updatePosition={updatePosition}
+              top={it.top}
+            />
           ))}
         </main>
       </div>
 
       <div
         className="bg-white overflow-hidden rounded-md p-30 max-w-xs flex-1 flex flex-col"
+        draggable="false"
       >
         <h2 className="text-4xl p-5 text-center" draggable="false">
           Published
         </h2>
-        <main className="p-10 bg-gray-300 flex-1" draggable="false"
-        draggable="false"
-        onDragEnter={dragEnter}
-        onDragOver={dragOver}
-        onDragLeave={dragLeave}
-        onDrop={drop}
-        id="published">
-          {sortBy(dataForArticles
-            .filter((it) => it.parent === 'published'),"top")
-            .map((it) => (
-              <Arcicle
-                draggable="false"
-                key={it.name}
-                props={it}
-                hide={it.hide}
-                updatePosition={updatePosition}
-              />
-            ))}
-          </main>
+        <main
+          className="p-10 bg-gray-300 flex-1"
+          draggable="false"
+          onDragStart={dragStart}
+          onDragEnter={dragEnter}
+          onDragOver={dragOver}
+          onDragLeave={dragLeave}
+          onDrop={drop}
+          id="published"
+        >
+          {sortBy(
+            dataForArticles.filter((it) => it.parent === 'published'),
+            'top'
+          ).map((it) => (
+            <Arcicle
+              draggable="false"
+              key={it.name}
+              props={it}
+              updatePosition={updatePosition}
+              // tobeDropped={tobeDropped}
+              top={it.top}
+            />
+          ))}
+        </main>
       </div>
     </div>
   );
