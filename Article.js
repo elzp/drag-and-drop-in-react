@@ -3,6 +3,12 @@ import './style.css';
 
 export default (props) => {
   const containerRef = React.useRef();
+  React.useEffect(() => {
+    props.updatePosition(
+      containerRef.current.getBoundingClientRect().top + window.scrollY,
+      props.props.name
+    );
+  });
   return (
     <article
       class={`bg-white rounded-md overflow-hidden my-10 ${props.hide?'hide': ''}}
